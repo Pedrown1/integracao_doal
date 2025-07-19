@@ -39,6 +39,10 @@ public class EstoqueService {
         repository.deleteById(id);
     }
 
+    public List<Estoque> buscarPorCodProduto(Integer codProduto) {
+        return repository.findByCodProduto(codProduto);
+    }
+
     public Estoque atualizarQuantidade(Integer codProduto, BigDecimal novaQuantidade) {
         Estoque estoque = repository.findAll().stream()
                 .filter(e -> e.getCodProduto().equals(codProduto))

@@ -35,20 +35,32 @@ public class ControllerProduto {
                             examples = @ExampleObject(
                                     name = "Sucesso",
                                     value = """
-                {
-                  "Status": 1,
-                  "Mensagem": "Requisição realizada com Sucesso!",
-                  "Dados": {
-                    "id": 1,
-                    "ativo": "S",
-                    "descricao": "Teclado Mecânico RGB",
-                    "unidade": "PC",
-                    "usoProd": "Consumo",
-                    "origemProd": "Nacional",
-                    "idExterno": 101
-                  }
-                }
-                """
+                                                                        {
+                                                                            "Status": 1,
+                                                                            "Mensagem": "Requisição realizada com Sucesso!",
+                                                                            "Dados": {
+                                                                                "id": 1,
+                                                                                "informacao": {
+                                                                                    "ativo": "Sim",
+                                                                                    "descricao": "Mouse Logitech MX Master 3",
+                                                                                    "unidade": "UNIDADE",
+                                                                                    "refFornecedor": "REF1001",
+                                                                                    "marca": "LOGITECH"
+                                                                                },
+                                                                                "impostos": {
+                                                                                    "calcIcms": "Sim",
+                                                                                    "tipSubst": "Subst. na compra e na venda",
+                                                                                    "cstIpiEnt": "49-Outras Entradas",
+                                                                                    "cstIpiSai": "99-Outras Saídas"
+                                                                                },
+                                                                                "grupo": {
+                                                                                    "grupoProd": "DEPÓSITO CENTRAL"
+                                                                                },
+                                                                                "dtAlter": "19/07/2025",
+                                                                                "idExterno": null
+                                                                            }
+                                                                        }
+                                            """
                             ),
                             schema = @Schema(implementation = Object.class)
                     )
@@ -59,12 +71,12 @@ public class ControllerProduto {
                             examples = @ExampleObject(
                                     name = "Erro de validação",
                                     value = """
-                {
-                  "Status": 2,
-                  "Mensagem": "Origem do Produto é obrigatória",
-                  "Dados": []
-                }
-                """
+                                            {
+                                              "Status": 2,
+                                              "Mensagem": "Origem do Produto é obrigatória",
+                                              "Dados": []
+                                            }
+                                            """
                             ),
                             schema = @Schema(implementation = Object.class)
                     )
@@ -89,31 +101,55 @@ public class ControllerProduto {
                             examples = @ExampleObject(
                                     name = "Sucesso em lote",
                                     value = """
-                {
-                  "Status": 1,
-                  "Mensagem": "Requisição realizada com Sucesso!",
-                  "Dados": [
-                    {
-                      "id": 2,
-                      "ativo": "S",
-                      "descricao": "Teclado Mecânico RGB",
-                      "unidade": "PC",
-                      "usoProd": "Consumo",
-                      "origemProd": "Nacional",
-                      "idExterno": 101
-                    },
-                    {
-                      "id": 3,
-                      "ativo": "N",
-                      "descricao": "Monitor 144Hz",
-                      "unidade": "PC",
-                      "usoProd": "Consumo",
-                      "origemProd": "Nacional",
-                      "idExterno": 50
-                    }
-                  ]
-                }
-                """
+                                                                        {
+                                                                            "Status": 1,
+                                                                            "Mensagem": "Requisição realizada com Sucesso!",
+                                                                            "Dados": [
+                                                                                {
+                                                                                    "id": 1,
+                                                                                    "informacao": {
+                                                                                        "ativo": "Sim",
+                                                                                        "descricao": "Mouse Logitech MX Master 3",
+                                                                                        "unidade": "UNIDADE",
+                                                                                        "refFornecedor": "REF1001",
+                                                                                        "marca": "LOGITECH"
+                                                                                    },
+                                                                                    "impostos": {
+                                                                                        "calcIcms": "Sim",
+                                                                                        "tipSubst": "Subst. na compra e na venda",
+                                                                                        "cstIpiEnt": "49-Outras Entradas",
+                                                                                        "cstIpiSai": "99-Outras Saídas"
+                                                                                    },
+                                                                                    "grupo": {
+                                                                                        "grupoProd": "DEPÓSITO CENTRAL"
+                                                                                    },
+                                                                                    "dtAlter": "19/07/2025",
+                                                                                    "idExterno": null
+                                                                                },
+                                                                                {
+                                                                                    "id": 2,
+                                                                                    "informacao": {
+                                                                                        "ativo": "Nao",
+                                                                                        "descricao": "Caderno Tilibra Universitário 200 folhas",
+                                                                                        "unidade": "CAIXA",
+                                                                                        "refFornecedor": "REF1002",
+                                                                                        "marca": "TILIBRA"
+                                                                                    },
+                                                                                    "impostos": {
+                                                                                        "calcIcms": "Nao",
+                                                                                        "tipSubst": "Revenda com subst. tributária (cálculo de Subst. na compra)",
+                                                                                        "cstIpiEnt": "00-Entrada c/Recuperação de Crédito",
+                                                                                        "cstIpiSai": "50-Saída Tributada"
+                                                                                    },
+                                                                                    "grupo": {
+                                                                                        "grupoProd": "DEPÓSITO CENTRAL"
+                                                                                    },
+                                                                                    "dtAlter": "19/07/2025",
+                                                                                    "idExterno": null
+                                                                                }
+                                                                            ]
+                                                                        }
+                                            """
                             ),
                             schema = @Schema(implementation = Object.class)
                     )
@@ -124,12 +160,12 @@ public class ControllerProduto {
                             examples = @ExampleObject(
                                     name = "Erro em lote",
                                     value = """
-                {
-                  "Status": 2,
-                  "Mensagem": "Descrição é obrigatória",
-                  "Dados": []
-                }
-                """
+                                            {
+                                              "Status": 2,
+                                              "Mensagem": "Descrição é obrigatória",
+                                              "Dados": []
+                                            }
+                                            """
                             ),
                             schema = @Schema(implementation = Object.class)
                     )
@@ -154,31 +190,55 @@ public class ControllerProduto {
                             examples = @ExampleObject(
                                     name = "Sucesso",
                                     value = """
-                {
-                  "Status": 1,
-                  "Mensagem": "Requisição realizada com Sucesso!",
-                  "Dados": [
-                    {
-                      "id": 1,
-                      "ativo": "S",
-                      "descricao": "Teclado Mecânico RGB",
-                      "unidade": "PC",
-                      "usoProd": "Consumo",
-                      "origemProd": "Nacional",
-                      "idExterno": 101
-                    },
-                    {
-                      "id": 2,
-                      "ativo": "S",
-                      "descricao": "Teclado Mecânico RGB",
-                      "unidade": "PC",
-                      "usoProd": "Consumo",
-                      "origemProd": "Nacional",
-                      "idExterno": 101
-                    }
-                  ]
-                }
-                """
+                                                                        {
+                                                                            "Status": 1,
+                                                                            "Mensagem": "Requisição realizada com Sucesso!",
+                                                                            "Dados": [
+                                                                                {
+                                                                                    "id": 1,
+                                                                                    "informacao": {
+                                                                                        "ativo": "Sim",
+                                                                                        "descricao": "Mouse Logitech MX Master 3",
+                                                                                        "unidade": "UNIDADE",
+                                                                                        "refFornecedor": "REF1001",
+                                                                                        "marca": "LOGITECH"
+                                                                                    },
+                                                                                    "impostos": {
+                                                                                        "calcIcms": "Sim",
+                                                                                        "tipSubst": "Subst. na compra e na venda",
+                                                                                        "cstIpiEnt": "49-Outras Entradas",
+                                                                                        "cstIpiSai": "99-Outras Saídas"
+                                                                                    },
+                                                                                    "grupo": {
+                                                                                        "grupoProd": "DEPÓSITO CENTRAL"
+                                                                                    },
+                                                                                    "dtAlter": "19/07/2025",
+                                                                                    "idExterno": null
+                                                                                },
+                                                                                {
+                                                                                    "id": 2,
+                                                                                    "informacao": {
+                                                                                        "ativo": "Nao",
+                                                                                        "descricao": "Caderno Tilibra Universitário 200 folhas",
+                                                                                        "unidade": "CAIXA",
+                                                                                        "refFornecedor": "REF1002",
+                                                                                        "marca": "TILIBRA"
+                                                                                    },
+                                                                                    "impostos": {
+                                                                                        "calcIcms": "Nao",
+                                                                                        "tipSubst": "Revenda com subst. tributária (cálculo de Subst. na compra)",
+                                                                                        "cstIpiEnt": "00-Entrada c/Recuperação de Crédito",
+                                                                                        "cstIpiSai": "50-Saída Tributada"
+                                                                                    },
+                                                                                    "grupo": {
+                                                                                        "grupoProd": "DEPÓSITO CENTRAL"
+                                                                                    },
+                                                                                    "dtAlter": "19/07/2025",
+                                                                                    "idExterno": null
+                                                                                }
+                                                                            ]
+                                                                        }
+                                            """
                             ),
                             schema = @Schema(implementation = Object.class)
                     )
@@ -189,12 +249,12 @@ public class ControllerProduto {
                             examples = @ExampleObject(
                                     name = "Sem resultados",
                                     value = """
-                {
-                  "Status": 2,
-                  "Mensagem": "Lista de Produtos Vazia!",
-                  "Dados": []
-                }
-                """
+                                            {
+                                              "Status": 2,
+                                              "Mensagem": "Lista de Produtos Vazia!",
+                                              "Dados": []
+                                            }
+                                            """
                             ),
                             schema = @Schema(implementation = Object.class)
                     )
@@ -223,20 +283,32 @@ public class ControllerProduto {
                             examples = @ExampleObject(
                                     name = "Sucesso",
                                     value = """
-                {
-                  "Status": 1,
-                  "Mensagem": "Requisição realizada com Sucesso!",
-                  "Dados": {
-                    "id": 1,
-                    "ativo": "S",
-                    "descricao": "Teclado Mecânico RGB",
-                    "unidade": "PC",
-                    "usoProd": "Consumo",
-                    "origemProd": "Nacional",
-                    "idExterno": 101
-                  }
-                }
-                """
+                                                                        {
+                                                                            "Status": 1,
+                                                                            "Mensagem": "Requisição realizada com Sucesso!",
+                                                                            "Dados": {
+                                                                                "id": 1,
+                                                                                "informacao": {
+                                                                                    "ativo": "Sim",
+                                                                                    "descricao": "Mouse Logitech MX Master 3",
+                                                                                    "unidade": "UNIDADE",
+                                                                                    "refFornecedor": "REF1001",
+                                                                                    "marca": "LOGITECH"
+                                                                                },
+                                                                                "impostos": {
+                                                                                    "calcIcms": "Sim",
+                                                                                    "tipSubst": "Subst. na compra e na venda",
+                                                                                    "cstIpiEnt": "49-Outras Entradas",
+                                                                                    "cstIpiSai": "99-Outras Saídas"
+                                                                                },
+                                                                                "grupo": {
+                                                                                    "grupoProd": "DEPÓSITO CENTRAL"
+                                                                                },
+                                                                                "dtAlter": "19/07/2025",
+                                                                                "idExterno": null
+                                                                            }
+                                                                        }
+                                            """
                             ),
                             schema = @Schema(implementation = Object.class)
                     )
@@ -247,12 +319,12 @@ public class ControllerProduto {
                             examples = @ExampleObject(
                                     name = "Não encontrado",
                                     value = """
-                {
-                  "Status": 2,
-                  "Mensagem": "Produto não encontrado",
-                  "Dados": []
-                }
-                """
+                                            {
+                                              "Status": 2,
+                                              "Mensagem": "Produto não encontrado",
+                                              "Dados": []
+                                            }
+                                            """
                             ),
                             schema = @Schema(implementation = Object.class)
                     )

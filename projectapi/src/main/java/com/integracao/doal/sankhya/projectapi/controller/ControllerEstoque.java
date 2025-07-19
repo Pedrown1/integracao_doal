@@ -182,9 +182,16 @@ public class ControllerEstoque {
             )
     })
     @GetMapping("/buscar")
-    public Map<String, Object> listarTodos() {
+    public Map<String, Object> listarTodos(@RequestParam(value = "codprod", required = false) Integer codProduto) {
         try {
-            List<Estoque> lista = service.listarTodos();
+            List<Estoque> lista;
+
+            if (codProduto != null) {
+                lista = service.buscarPorCodProduto(codProduto);
+            } else {
+                lista = service.listarTodos();
+            }
+
             if (lista.isEmpty()) {
                 return Util.estruturaAPI(2, "Lista de Estoques Vazia!", null);
             } else {
@@ -195,6 +202,7 @@ public class ControllerEstoque {
             return Util.estruturaAPI(2, e.getMessage(), null);
         }
     }
+
 
     @Operation(summary = "Buscar estoque por ID")
     @ApiResponses(value = {

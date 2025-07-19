@@ -18,9 +18,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+
+import static com.integracao.doal.sankhya.projectapi.utilidades.Util.montarRespostaParceiro;
 
 @RestController
 @RequestMapping("/api/v1/parceiros")
@@ -39,17 +39,33 @@ public class ControllerParceiro {
                                     name = "Sucesso",
                                     value = """
                                             {
-                                              "Status": 1,
-                                              "Mensagem": "Requisição realizada com Sucesso!",
-                                              "Dados": {
-                                                "id": 1,
-                                                "nome": "TechNova Ltda",
-                                                "ativo": "S",
-                                                "tipo": "Cliente",
-                                                "tipoPessoa": "J",
-                                                "cnpjCpf": "11.111.111/0001-01",
-                                                "idExterno": 101
-                                              }
+                                                "Status": 1,
+                                                "Mensagem": "Requisição realizada com Sucesso!",
+                                                "Dados": {
+                                                    "informacao": {
+                                                        "ativo": "S",
+                                                        "tipoPessoa": "Fisica",
+                                                        "nome": "Carlos Eduardo Martins",
+                                                        "cnpjCpf": "174.712.130-52"
+                                                    },
+                                                    "observacao": "Parceiro Integrado do E-commerce",
+                                                    "endereco": {
+                                                        "codCid": 2345
+                                                    },
+                                                    "dtCadastra": "19/07/2025",
+                                                    "fiscal": {
+                                                        "temIPI": "Sim",
+                                                        "classifIcms": "Revendedor"
+                                                    },
+                                                    "idExterno": 101,
+                                                    "credito": {
+                                                        "situacao": "Excelente",
+                                                        "LimCred": 750.45,
+                                                        "bloquearPrazo": "Nao"
+                                                    },
+                                                    "id": 1,
+                                                    "dtAlter": "19/07/2025"
+                                                }
                                             }
                                             """
                             ),
@@ -62,9 +78,9 @@ public class ControllerParceiro {
                                     name = "Erro",
                                     value = """
                                             {
-                                              "Status": 2,
-                                              "Mensagem": "Id Externo é obrigatório",
-                                              "Dados": []
+                                                "Status": 2,
+                                                "Mensagem": "TipoPessoa é obrigatório",
+                                                "Dados": []
                                             }
                                             """
                             ),
@@ -75,7 +91,8 @@ public class ControllerParceiro {
     public Map<String, Object> criar(@RequestBody Parceiro parceiro) {
         try {
             Parceiro salvo = service.salvar(parceiro);
-            return Util.estruturaAPI(1, "Requisição realizada com Sucesso!", salvo);
+            Map<String, Object> parceiroMap = Util.montarRespostaParceiro(salvo);
+            return Util.estruturaAPI(1, "Requisição realizada com Sucesso!", parceiroMap);
         } catch (Exception e) {
             e.printStackTrace();
             return Util.estruturaAPI(2, e.getMessage(), null);
@@ -91,29 +108,61 @@ public class ControllerParceiro {
                                     name = "Sucesso em lote",
                                     value = """
                                             {
-                                              "Status": 1,
-                                              "Mensagem": "Requisição realizada com Sucesso!",
-                                              "Dados": [
-                                                {
-                                                  "id": 2,
-                                                  "nome": "TechNova Ltda",
-                                                  "ativo": "S",
-                                                  "tipo": "Cliente",
-                                                  "tipoPessoa": "J",
-                                                  "cnpjCpf": "11.111.111/0001-01",
-                                                  "idExterno": 101
-                                                },
-                                                {
-                                                  "id": 3,
-                                                  "nome": "Lucas Almeida",
-                                                  "ativo": "S",
-                                                  "tipo": "Cliente",
-                                                  "tipoPessoa": "F",
-                                                  "cnpjCpf": "123.456.789-01",
-                                                  "idExterno": 201
-                                                }
-                                              ]
-                                            }
+                                                 "Status": 1,
+                                                 "Mensagem": "Requisição realizada com Sucesso!",
+                                                 "Dados": [
+                                                     {
+                                                         "informacao": {
+                                                             "ativo": "S",
+                                                             "tipoPessoa": "Fisica",
+                                                             "nome": "Carlos Eduardo Martins",
+                                                             "cnpjCpf": "174.712.130-52"
+                                                         },
+                                                         "observacao": "Parceiro Integrado do E-commerce",
+                                                         "endereco": {
+                                                             "codCid": 2345
+                                                         },
+                                                         "dtCadastra": "19/07/2025",
+                                                         "fiscal": {
+                                                             "temIPI": "Sim",
+                                                             "classifIcms": "Revendedor"
+                                                         },
+                                                         "idExterno": 101,
+                                                         "credito": {
+                                                             "situacao": "Excelente",
+                                                             "LimCred": 750.45,
+                                                             "bloquearPrazo": "Nao"
+                                                         },
+                                                         "id": 1,
+                                                         "dtAlter": "19/07/2025"
+                                                     },
+                                                     {
+                                                         "informacao": {
+                                                             "ativo": "S",
+                                                             "tipoPessoa": "Fisica",
+                                                             "nome": "Ana Beatriz Souza",
+                                                             "cnpjCpf": "468.295.380-00"
+                                                         },
+                                                         "observacao": "Parceiro Integrado do E-commerce",
+                                                         "endereco": {
+                                                             "codCid": 1020
+                                                         },
+                                                         "dtCadastra": "19/07/2025",
+                                                         "fiscal": {
+                                                             "temIPI": "Nao",
+                                                             "classifIcms": "Isento de ICMS"
+                                                         },
+                                                         "idExterno": 102,
+                                                         "credito": {
+                                                             "situacao": "Bom",
+                                                             "LimCred": 523.00,
+                                                             "bloquearPrazo": "Sim"
+                                                         },
+                                                         "id": 2,
+                                                         "dtAlter": "19/07/2025"
+                                                     }
+                                                 ]
+                                             }
                                             """
                             ),
                             schema = @Schema(implementation = Object.class)
@@ -136,9 +185,17 @@ public class ControllerParceiro {
     })
     @PostMapping("/cadastrar/lote")
     public Map<String, Object> criarLote(@RequestBody List<Parceiro> parceiros) {
+        List<Object> listaFormatada = new ArrayList<>();
+
         try {
             List<Parceiro> salvos = service.salvarTodos(parceiros);
-            return Util.estruturaAPI(1, "Requisição realizada com Sucesso!", salvos);
+
+            for (Parceiro p : salvos) {
+                Object objFormatado = montarRespostaParceiro(p);
+                listaFormatada.add(objFormatado);
+            }
+
+            return Util.estruturaAPI(1, "Requisição realizada com Sucesso!", listaFormatada);
         } catch (Exception e) {
             e.printStackTrace();
             return Util.estruturaAPI(2, e.getMessage(), null);
@@ -153,29 +210,61 @@ public class ControllerParceiro {
                                     name = "Sucesso",
                                     value = """
                                             {
-                                                "Status": 1,
-                                                "Mensagem": "Requisição realizada com Sucesso!",
-                                                "Dados": [
-                                                    {
-                                                        "id": 1,
-                                                        "nome": "TechNova Ltda",
-                                                        "ativo": "S",
-                                                        "tipo": "Cliente",
-                                                        "tipoPessoa": "J",
-                                                        "cnpjCpf": "11.111.111/0001-01",
-                                                        "idExterno": 101.00
-                                                    },
-                                                    {
-                                                        "id": 2,
-                                                        "nome": "Lucas Almeida",
-                                                        "ativo": "S",
-                                                        "tipo": "Cliente",
-                                                        "tipoPessoa": "F",
-                                                        "cnpjCpf": "123.456.789-01",
-                                                        "idExterno": 201.00
-                                                    }
-                                                ]
-                                            }
+                                                 "Status": 1,
+                                                 "Mensagem": "Requisição realizada com Sucesso!",
+                                                 "Dados": [
+                                                     {
+                                                         "informacao": {
+                                                             "ativo": "S",
+                                                             "tipoPessoa": "Fisica",
+                                                             "nome": "Carlos Eduardo Martins",
+                                                             "cnpjCpf": "174.712.130-52"
+                                                         },
+                                                         "observacao": "Parceiro Integrado do E-commerce",
+                                                         "endereco": {
+                                                             "codCid": 2345
+                                                         },
+                                                         "dtCadastra": "19/07/2025",
+                                                         "fiscal": {
+                                                             "temIPI": "Sim",
+                                                             "classifIcms": "Revendedor"
+                                                         },
+                                                         "idExterno": 101,
+                                                         "credito": {
+                                                             "situacao": "Excelente",
+                                                             "LimCred": 750.45,
+                                                             "bloquearPrazo": "Nao"
+                                                         },
+                                                         "id": 1,
+                                                         "dtAlter": "19/07/2025"
+                                                     },
+                                                     {
+                                                         "informacao": {
+                                                             "ativo": "S",
+                                                             "tipoPessoa": "Fisica",
+                                                             "nome": "Ana Beatriz Souza",
+                                                             "cnpjCpf": "468.295.380-00"
+                                                         },
+                                                         "observacao": "Parceiro Integrado do E-commerce",
+                                                         "endereco": {
+                                                             "codCid": 1020
+                                                         },
+                                                         "dtCadastra": "19/07/2025",
+                                                         "fiscal": {
+                                                             "temIPI": "Nao",
+                                                             "classifIcms": "Isento de ICMS"
+                                                         },
+                                                         "idExterno": 102,
+                                                         "credito": {
+                                                             "situacao": "Bom",
+                                                             "LimCred": 523.00,
+                                                             "bloquearPrazo": "Sim"
+                                                         },
+                                                         "id": 2,
+                                                         "dtAlter": "19/07/2025"
+                                                     }
+                                                 ]
+                                             }
                                             """
                             )
                     )
@@ -200,13 +289,18 @@ public class ControllerParceiro {
     })
     @GetMapping("/buscar")
     public Map<String, Object> listarTodos() {
+        List<Object> listaFormatada = new ArrayList<>();
         try {
             List<Parceiro> lista = service.listarTodos();
 
             if (lista.isEmpty()) {
                 return Util.estruturaAPI(2, "Lista de Parceiros Vazia!", null);
             } else {
-                return Util.estruturaAPI(1, "Requisição realizada com Sucesso!", lista);
+                for(Parceiro parceiro : lista){
+                    Object objFormatado = montarRespostaParceiro(parceiro);
+                    listaFormatada.add(objFormatado);
+                }
+                return Util.estruturaAPI(1, "Requisição realizada com Sucesso!", listaFormatada);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -222,18 +316,34 @@ public class ControllerParceiro {
                                     name = "Sucesso",
                                     value = """
                                             {
-                                                "Status": 1,
-                                                "Mensagem": "Requisição realizada com Sucesso!",
-                                                "Dados": {
-                                                    "id": 1,
-                                                    "nome": "TechNova Ltda",
-                                                    "ativo": "S",
-                                                    "tipo": "Cliente",
-                                                    "tipoPessoa": "J",
-                                                    "cnpjCpf": "11.111.111/0001-01",
-                                                    "idExterno": 101.00
-                                                }
-                                            }
+                                                 "Status": 1,
+                                                 "Mensagem": "Requisição realizada com Sucesso!",
+                                                 "Dados": {
+                                                     "informacao": {
+                                                         "ativo": "S",
+                                                         "tipoPessoa": "Fisica",
+                                                         "nome": "Carlos Eduardo Martins",
+                                                         "cnpjCpf": "174.712.130-52"
+                                                     },
+                                                     "observacao": "Parceiro Integrado do E-commerce",
+                                                     "endereco": {
+                                                         "codCid": 2345
+                                                     },
+                                                     "dtCadastra": "19/07/2025",
+                                                     "fiscal": {
+                                                         "temIPI": "Sim",
+                                                         "classifIcms": "Revendedor"
+                                                     },
+                                                     "idExterno": 101,
+                                                     "credito": {
+                                                         "situacao": "Excelente",
+                                                         "LimCred": 750.45,
+                                                         "bloquearPrazo": "Nao"
+                                                     },
+                                                     "id": 1,
+                                                     "dtAlter": "19/07/2025"
+                                                 }
+                                             }
                                             """
                             )
                     )
@@ -261,7 +371,8 @@ public class ControllerParceiro {
         try {
             Optional<Parceiro> parceiro = service.buscarPorId(id);
             if (parceiro.isPresent()) {
-                return Util.estruturaAPI(1, "Requisição realizada com Sucesso!", parceiro.get());
+                Map<String, Object> parceiroMap = montarRespostaParceiro(parceiro.get());
+                return Util.estruturaAPI(1, "Requisição realizada com Sucesso!", parceiroMap);
             } else {
                 return Util.estruturaAPI(2, "Parceiro não encontrado", null);
             }
@@ -282,7 +393,5 @@ public class ControllerParceiro {
             return Util.estruturaAPI(2, e.getMessage(), null);
         }
     }
-
-
 }
 

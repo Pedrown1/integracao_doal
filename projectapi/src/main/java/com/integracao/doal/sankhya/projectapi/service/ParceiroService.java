@@ -39,23 +39,62 @@ public class ParceiroService {
     }
 
     private void validarParceiro(Parceiro parceiro) {
-        if (parceiro.getNome() == null || parceiro.getNome().trim().isEmpty()) {
+
+        if (parceiro.getInformacao() == null) {
+            throw new IllegalArgumentException("Informação do parceiro é obrigatória");
+        }
+        if (isNullOrEmpty(parceiro.getInformacao().getNome())) {
             throw new IllegalArgumentException("Nome é obrigatório");
         }
-        if (parceiro.getAtivo() == null || parceiro.getAtivo().trim().isEmpty()) {
-            throw new IllegalArgumentException("Ativo é obrigatório");
+        if (isNullOrEmpty(parceiro.getInformacao().getAtivo())) {
+            throw new IllegalArgumentException("Campo 'ativo' é obrigatório");
         }
-        if (parceiro.getTipo() == null || parceiro.getTipo().trim().isEmpty()) {
-            throw new IllegalArgumentException("Tipo é obrigatório");
-        }
-        if (parceiro.getTipoPessoa() == null || parceiro.getTipoPessoa().trim().isEmpty()) {
+        if (isNullOrEmpty(parceiro.getInformacao().getTipoPessoa())) {
             throw new IllegalArgumentException("TipoPessoa é obrigatório");
         }
-        if (parceiro.getCnpjCpf() == null || parceiro.getCnpjCpf().trim().isEmpty()) {
+        if (isNullOrEmpty(parceiro.getInformacao().getCnpjCpf())) {
             throw new IllegalArgumentException("CNPJ/CPF é obrigatório");
         }
-        if (parceiro.getIdExterno() == null) {
-            throw new IllegalArgumentException("Id Externo é obrigatório");
+
+
+        if (parceiro.getEndereco() == null || parceiro.getEndereco().getCodCid() == null) {
+            throw new IllegalArgumentException("Código da cidade é obrigatório");
+        }
+
+        if (parceiro.getCredito() == null) {
+            throw new IllegalArgumentException("Informações de crédito são obrigatórias");
+        }
+        if (isNullOrEmpty(parceiro.getCredito().getSituacao())) {
+            throw new IllegalArgumentException("Situação do crédito é obrigatória");
+        }
+        if (parceiro.getCredito().getLimCred() == null) {
+            throw new IllegalArgumentException("Limite de crédito é obrigatório");
+        }
+        if (isNullOrEmpty(parceiro.getCredito().getBloquearPrazo())) {
+            throw new IllegalArgumentException("Informar se bloqueia prazo é obrigatório");
+        }
+
+        if (parceiro.getFiscal() == null) {
+            throw new IllegalArgumentException("Informações fiscais são obrigatórias");
+        }
+        if (isNullOrEmpty(parceiro.getFiscal().getClassifIcms())) {
+            throw new IllegalArgumentException("Classificação ICMS é obrigatória");
+        }
+        if (isNullOrEmpty(parceiro.getFiscal().getTemIPI())) {
+            throw new IllegalArgumentException("Informar se tem IPI é obrigatório");
+        }
+
+        // Datas
+        if (isNullOrEmpty(parceiro.getDtCadastra())) {
+            throw new IllegalArgumentException("Data de cadastro é obrigatória");
+        }
+        if (isNullOrEmpty(parceiro.getDtAlter())) {
+            throw new IllegalArgumentException("Data de alteração é obrigatória");
         }
     }
+
+    private boolean isNullOrEmpty(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
 }

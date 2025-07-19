@@ -1,30 +1,64 @@
 package com.integracao.doal.sankhya.projectapi.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.persistence.*;
 import lombok.Data;
-
 import java.math.BigDecimal;
 
 @Data
 @Entity
+@Table(name = "E_PARCEIROV2")
 public class Parceiro {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
+    private Integer id;
 
-    String nome;
+    @Embedded
+    private Informacao informacao;
 
-    String ativo;
+    @Embedded
+    private Endereco endereco;
 
-    String tipo;
+    @Embedded
+    private Credito credito;
 
-    String tipoPessoa;
+    @Embedded
+    private Fiscal fiscal;
 
-    String cnpjCpf;
+    private String dtCadastra;
+    private String dtAlter;
+    private String observacao;
+    private Integer idExterno;
 
-    Integer idExterno;
+    @Embeddable
+    @Data
+    public static class Informacao {
+        private String ativo;
+        private String nome;
+        private String tipoPessoa;
+        private String cnpjCpf;
+    }
+
+    @Embeddable
+    @Data
+    public static class Endereco {
+        private Integer codCid;
+    }
+
+    @Embeddable
+    @Data
+    public static class Credito {
+        private String situacao;
+        private BigDecimal limCred;
+        private String bloquearPrazo;
+    }
+
+    @Embeddable
+    @Data
+    public static class Fiscal {
+        private String classifIcms;
+        private String temIPI;
+    }
 }
+

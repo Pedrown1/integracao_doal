@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.Data;
 
-import java.math.BigDecimal;
 
 @Data
 @Entity
@@ -22,9 +21,17 @@ public class Produto {
 
     String unidade;
 
-    String usoProd;
+    String dtAlter;
 
-    String origemProd;
+    Integer codGrupoProd;
+
+    Integer cstIpiEnt;
+
+    Integer cstIpiSai;
+
+    String marca;
+
+    String refFornecedor;
 
     Integer idExterno;
 }

@@ -48,12 +48,6 @@ public class ProdutoService {
         if (produto.getUnidade() == null || produto.getUnidade().trim().isEmpty()) {
             throw new IllegalArgumentException("Unidade é obrigatória");
         }
-        if (produto.getUsoProd() == null || produto.getUsoProd().trim().isEmpty()) {
-            throw new IllegalArgumentException("Uso do Produto é obrigatório");
-        }
-        if (produto.getOrigemProd() == null || produto.getOrigemProd().trim().isEmpty()) {
-            throw new IllegalArgumentException("Origem do Produto é obrigatória");
-        }
         if (produto.getIdExterno() == null) {
             throw new IllegalArgumentException("Id Externo é obrigatório");
         }

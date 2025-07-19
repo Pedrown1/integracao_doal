@@ -39,15 +39,25 @@ public class ProdutoService {
     }
 
     private void validarProduto(Produto produto) {
-        validarCampo(produto.getAtivo(), "Ativo é obrigatório");
-        validarCampo(produto.getDescricao(), "Descrição é obrigatória");
-        validarCampo(produto.getUnidade(), "Unidade é obrigatória");
+
+        if (produto.getInformacao() == null) {
+            throw new IllegalArgumentException("Informação é obrigatória");
+        }
+        if (produto.getGrupo() == null || produto.getGrupo().getGrupoProd() == null) {
+            throw new IllegalArgumentException("Código do grupo do produto é obrigatório");
+        }
+        if (produto.getImpostos() == null) {
+            throw new IllegalArgumentException("Informações de impostos são obrigatórias");
+        }
+
+        validarCampo(produto.getInformacao().getAtivo(), "Ativo é obrigatório");
+        validarCampo(produto.getInformacao().getDescricao(), "Descrição é obrigatória");
+        validarCampo(produto.getInformacao().getUnidade(), "Unidade é obrigatória");
         validarCampo(produto.getDtAlter(), "Data de alteração é obrigatória");
-        validarCampo(produto.getCodGrupoProd(), "Código do grupo do produto é obrigatório");
-        validarCampo(produto.getCstIpiEnt(), "CST IPI Entrada é obrigatório");
-        validarCampo(produto.getCstIpiSai(), "CST IPI Saída é obrigatório");
-        validarCampo(produto.getMarca(), "Marca é obrigatória");
-        validarCampo(produto.getRefFornecedor(), "Referência do fornecedor é obrigatória");
+        validarCampo(produto.getImpostos().getCstIpiEnt(), "CST IPI Entrada é obrigatório");
+        validarCampo(produto.getImpostos().getCstIpiSai(), "CST IPI Saída é obrigatório");
+        validarCampo(produto.getInformacao().getMarca(), "Marca é obrigatória");
+        validarCampo(produto.getInformacao().getRefFornecedor(), "Referência do fornecedor é obrigatória");
     }
 
     private void validarCampo(Object valor, String mensagemErro) {

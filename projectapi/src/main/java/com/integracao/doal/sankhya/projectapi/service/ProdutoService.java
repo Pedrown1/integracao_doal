@@ -39,17 +39,23 @@ public class ProdutoService {
     }
 
     private void validarProduto(Produto produto) {
-        if (produto.getAtivo() == null || produto.getAtivo().trim().isEmpty()) {
-            throw new IllegalArgumentException("Ativo é obrigatório");
+        validarCampo(produto.getAtivo(), "Ativo é obrigatório");
+        validarCampo(produto.getDescricao(), "Descrição é obrigatória");
+        validarCampo(produto.getUnidade(), "Unidade é obrigatória");
+        validarCampo(produto.getDtAlter(), "Data de alteração é obrigatória");
+        validarCampo(produto.getCodGrupoProd(), "Código do grupo do produto é obrigatório");
+        validarCampo(produto.getCstIpiEnt(), "CST IPI Entrada é obrigatório");
+        validarCampo(produto.getCstIpiSai(), "CST IPI Saída é obrigatório");
+        validarCampo(produto.getMarca(), "Marca é obrigatória");
+        validarCampo(produto.getRefFornecedor(), "Referência do fornecedor é obrigatória");
+    }
+
+    private void validarCampo(Object valor, String mensagemErro) {
+        if (valor == null) {
+            throw new IllegalArgumentException(mensagemErro);
         }
-        if (produto.getDescricao() == null || produto.getDescricao().trim().isEmpty()) {
-            throw new IllegalArgumentException("Descrição é obrigatória");
-        }
-        if (produto.getUnidade() == null || produto.getUnidade().trim().isEmpty()) {
-            throw new IllegalArgumentException("Unidade é obrigatória");
-        }
-        if (produto.getIdExterno() == null) {
-            throw new IllegalArgumentException("Id Externo é obrigatório");
+        if (valor instanceof String && ((String) valor).trim().isEmpty()) {
+            throw new IllegalArgumentException(mensagemErro);
         }
     }
 }
